@@ -1,7 +1,6 @@
 package dbproject.partsman;
 
 import org.hibernate.Session;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StoredProcedures {
@@ -15,5 +14,16 @@ public class StoredProcedures {
         session.close();
         return instock;
     }
+
+    public static List<String> getBrands(){
+        session = HibernateSession.getCurrentSession();
+        session.beginTransaction();
+        List<String> brands = session.createSQLQuery("call parts.GET_BRANDS();").getResultList();
+        session.close();
+        return brands;
+    }
+
+
+
 
 }
