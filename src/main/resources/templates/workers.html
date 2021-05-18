@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>СУБД</title>
 </head>
-<body>
-
+<body style="display:flex; flex-direction:row;">
+<div style="display:flex; flex-direction:column; width:15%;">
+    <h3>navigate</h3>
+    <a href="/instock">Склад</a>
+    <a href="/customers">Заказчики</a>
+    <a href="/orders">Заказы</a>
+    <a href="/workers" style="color:white;background:black;">Сотрудники</a>
+    <a href="/suppliers">Поставщики</a>
+    <a href="/items">Реестр товаров</a>
+    <a href="/brands">Реестр брендов</a>
+</div>
+<div style="display:flex; flex-direction:column; width:65%;">
+    <h3>content</h3>
+    <table style="width:100%">
+        <tr style="color:white;background:black;">
+            <th>#</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>История</th>
+            <th>@</th>
+        </tr>
+        <tr th:each="el : ${workers}" style="background:lightgrey;">
+            <th th:text="${el[0]}"></th>
+            <th th:text="${el[1]}"></th>
+            <th th:text="${el[2]}"></th>
+            <th th:text="${el[3]}"></th>
+            <th th:text="${el[4]}"></th>
+            <th><button><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></button><button><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24"><path d="M13.5 2c-5.629 0-10.212 4.436-10.475 10h-3.025l4.537 5.917 4.463-5.917h-2.975c.26-3.902 3.508-7 7.475-7 4.136 0 7.5 3.364 7.5 7.5s-3.364 7.5-7.5 7.5c-2.381 0-4.502-1.119-5.876-2.854l-1.847 2.449c1.919 2.088 4.664 3.405 7.723 3.405 5.798 0 10.5-4.702 10.5-10.5s-4.702-10.5-10.5-10.5z"/></svg></button></th>
+        </tr>
+    </table>
+</div>
+<div style="display:flex; flex-direction:column; width:20%;">
+    <h3>actions</h3>
+</div>
 </body>
 </html>
