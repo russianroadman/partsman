@@ -63,5 +63,12 @@ public class StoredProcedures {
         return workers;
     }
 
+    public static void addItem(String title, String snum, String qtty, String price){
+        session = HibernateSession.getCurrentSession();
+        session.beginTransaction();
+        session.createSQLQuery("call parts.ADD_ITEM_TO_INSTOCK(\""+title+"\", \""+snum+"\", "+qtty+", "+price+");").executeUpdate();
+        session.close();
+    }
+
 
 }

@@ -3,6 +3,8 @@ package dbproject.partsman;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -37,6 +39,18 @@ public class PartsController {
 
     @GetMapping("items")
     public String itemsRequest(Model model){
+        List<String[]> items = StoredProcedures.getItems();
+        model.addAttribute("items", items);
+        return "items";
+    }
+
+    @PostMapping("items/add")
+    public String itemsAddRequest(Model model,
+                                    @RequestParam String title,
+                                    @RequestParam String snum,
+                                    @RequestParam String qtty,
+                                    @RequestParam String price){
+        StoredProcedures.addItem(title, snum, qtty, price);
         List<String[]> items = StoredProcedures.getItems();
         model.addAttribute("items", items);
         return "items";
