@@ -25,7 +25,15 @@ public class PartsController {
 
     @GetMapping("brands")
     public String brandsRequest(Model model){
-        List<String> brands = StoredProcedures.getBrands();
+        List<String> brands = BrandsCRUD.read();
+        model.addAttribute("brands", brands);
+        return "brands";
+    }
+
+    @PostMapping("brands")
+    public String brandsAddRequest(Model model, @RequestParam String title){
+        BrandsCRUD.create(title);
+        List<String> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "brands";
     }
@@ -76,4 +84,7 @@ public class PartsController {
         model.addAttribute("workers", workers);
         return "workers";
     }
+
+
+
 }

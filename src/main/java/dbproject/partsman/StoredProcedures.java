@@ -7,13 +7,7 @@ public class StoredProcedures {
 
     private static Session session;
 
-    public static List<String> getBrands(){
-        session = HibernateSession.getCurrentSession();
-        session.beginTransaction();
-        List<String> brands = session.createSQLQuery("call parts.GET_BRANDS();").getResultList();
-        session.close();
-        return brands;
-    }
+
 
     public static List<String[]> getCustomers(){
         session = HibernateSession.getCurrentSession();
