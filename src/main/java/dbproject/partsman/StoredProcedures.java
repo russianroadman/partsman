@@ -7,8 +7,6 @@ public class StoredProcedures {
 
     private static Session session;
 
-
-
     public static List<String[]> getCustomers(){
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
@@ -41,13 +39,7 @@ public class StoredProcedures {
         return orders;
     }
 
-    public static List<String[]> getSuppliers(){
-        session = HibernateSession.getCurrentSession();
-        session.beginTransaction();
-        List<String[]> suppliers = session.createSQLQuery("call parts.GET_SUPPLIERS();").getResultList();
-        session.close();
-        return suppliers;
-    }
+
 
     public static List<String[]> getWorkers(){
         session = HibernateSession.getCurrentSession();

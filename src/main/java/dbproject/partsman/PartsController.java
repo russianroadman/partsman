@@ -17,12 +17,20 @@ public class PartsController {
         return "index";
     }
 
+    /* ************************************************************* */
+    /* ************************** INSTOCK ************************** */
+    /* ************************************************************* */
+
     @GetMapping("instock")
     public String instockRequest(Model model){
         List<String[]> instock = StoredProcedures.getInstock();
         model.addAttribute("instock", instock);
         return "instock";
     }
+
+    /* ************************************************************* */
+    /* *************************** BRANDS ************************** */
+    /* ************************************************************* */
 
     @GetMapping("brands")
     public String brandsRequest(Model model){
@@ -55,12 +63,20 @@ public class PartsController {
         return "redirect:/brands";
     }
 
+    /* ************************************************************* */
+    /* ************************* CUSTOMERS ************************* */
+    /* ************************************************************* */
+
     @GetMapping("customers")
     public String customersRequest(Model model){
         List<String[]> customers = StoredProcedures.getCustomers();
         model.addAttribute("customers", customers);
         return "customers";
     }
+
+    /* ************************************************************* */
+    /* *************************** ITEMS *************************** */
+    /* ************************************************************* */
 
     @GetMapping("items")
     public String itemsRequest(Model model){
@@ -81,6 +97,10 @@ public class PartsController {
         return "items";
     }
 
+    /* ************************************************************* */
+    /* *************************** ORDERS ************************** */
+    /* ************************************************************* */
+
     @GetMapping("orders")
     public String ordersRequest(Model model){
         List<String[]> orders = StoredProcedures.getOrders();
@@ -88,12 +108,58 @@ public class PartsController {
         return "orders";
     }
 
+    /* ************************************************************* */
+    /* ************************* SUPPLIERS ************************* */
+    /* ************************************************************* */
+
     @GetMapping("suppliers")
     public String suppliersRequest(Model model){
-        List<String[]> suppliers = StoredProcedures.getSuppliers();
+        List<String[]> suppliers = SuppliersCRUD.read();
         model.addAttribute("suppliers", suppliers);
         return "suppliers";
     }
+
+    @PostMapping("suppliers")
+    public String suppliersAddRequest(Model model,
+                                      @RequestParam String country,
+                                      @RequestParam String homestate,
+                                      @RequestParam String city,
+                                      @RequestParam String street,
+                                      @RequestParam String building,
+                                      @RequestParam String zip){
+        SuppliersCRUD.create(country, homestate, city, street, building, zip);
+        List<String[]> suppliers = SuppliersCRUD.read();
+        model.addAttribute("suppliers", suppliers);
+        return "redirect:/suppliers";
+    }
+
+    @PostMapping("/suppliers/delete")
+    public String suppliersRemoveRequest(Model model,
+                                         @RequestParam String id){
+        SuppliersCRUD.delete(id);
+        List<String[]> suppliers = SuppliersCRUD.read();
+        model.addAttribute("suppliers", suppliers);
+        return "redirect:/suppliers";
+    }
+
+    @PostMapping("/suppliers/update")
+    public String suppliersUpdateRequest(Model model,
+                                         @RequestParam String id,
+                                         @RequestParam String country,
+                                         @RequestParam String homestate,
+                                         @RequestParam String city,
+                                         @RequestParam String street,
+                                         @RequestParam String building,
+                                         @RequestParam String zip){
+        SuppliersCRUD.update(id, country, homestate, city, street, building, zip);
+        List<String[]> suppliers = SuppliersCRUD.read();
+        model.addAttribute("suppliers", suppliers);
+        return "redirect:/suppliers";
+    }
+
+    /* ************************************************************* */
+    /* ************************** WORKERS ************************** */
+    /* ************************************************************* */
 
     @GetMapping("workers")
     public String workersRequest(Model model){
