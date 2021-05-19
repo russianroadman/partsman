@@ -40,8 +40,8 @@ public class PartsController {
     }
 
     @PostMapping("/brands/delete")
-    public String brandsRemoveRequest(Model model, @RequestBody Brand brand){
-        BrandsCRUD.delete(brand.getId());
+    public String brandsRemoveRequest(Model model, @RequestParam String id){
+        BrandsCRUD.delete(id);
         List<String> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "redirect:/brands";

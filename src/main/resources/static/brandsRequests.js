@@ -1,10 +1,5 @@
 function deletePost(value){
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/brands/delete", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        id: value
-    }));
+    document.getElementsByClassName("delete-id")[0].value = value;
 }
 
 function updatePost(value){
