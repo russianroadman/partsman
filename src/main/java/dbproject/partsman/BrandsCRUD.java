@@ -23,14 +23,14 @@ public class BrandsCRUD {
         return brands;
     }
 
-    public static void update(int id, String title){
+    public static void update(String id, String title){
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
         session.createSQLQuery("call parts.UPDATE_BRAND(" + id + ", \"" + title + "\");").executeUpdate();
         session.close();
     }
 
-    public static void delete(int id){
+    public static void delete(String id){
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
         session.createSQLQuery("call parts.DELETE_BRAND(" + id + ");").executeUpdate();
