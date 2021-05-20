@@ -68,9 +68,50 @@ public class PartsController {
 
     @GetMapping("customers")
     public String customersRequest(Model model){
-        List<String[]> customers = StoredProcedures.getCustomers();
+        List<String[]> customers = CustomersCRUD.read();
         model.addAttribute("customers", customers);
         return "customers";
+    }
+
+    @PostMapping("customers")
+    public String customersAddRequest(Model model,
+                                      @RequestParam String firstname,
+                                      @RequestParam String secondname,
+                                      @RequestParam String middlename,
+                                      @RequestParam String email,
+                                      @RequestParam String phone,
+                                      @RequestParam String city,
+                                      @RequestParam String street,
+                                      @RequestParam String building){
+        CustomersCRUD.create(firstname, secondname, middlename, email, phone, city, street, building);
+        List<String[]> customers = CustomersCRUD.read();
+        model.addAttribute("customers", customers);
+        return "redirect:/customers";
+    }
+
+    @PostMapping("/customers/delete")
+    public String customersRemoveRequest(Model model, @RequestParam String id){
+        CustomersCRUD.delete(id);
+        List<String[]> customers = CustomersCRUD.read();
+        model.addAttribute("customers", customers);
+        return "redirect:/customers";
+    }
+
+    @PostMapping("/customers/update")
+    public String customersUpdateRequest(Model model,
+                                        @RequestParam String id,
+                                        @RequestParam String firstname,
+                                        @RequestParam String secondname,
+                                        @RequestParam String middlename,
+                                        @RequestParam String email,
+                                        @RequestParam String phone,
+                                        @RequestParam String city,
+                                        @RequestParam String street,
+                                        @RequestParam String building){
+        CustomersCRUD.update(id, firstname, secondname, middlename, email, phone, city, street, building);
+        List<String[]> customers = CustomersCRUD.read();
+        model.addAttribute("customers", customers);
+        return "redirect:/customers";
     }
 
     /* ************************************************************* */
