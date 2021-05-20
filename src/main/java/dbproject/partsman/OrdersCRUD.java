@@ -37,4 +37,11 @@ public class OrdersCRUD {
         session.close();
     }
 
+    public static void check(String id, String state){
+        session = HibernateSession.getCurrentSession();
+        session.beginTransaction();
+        session.createSQLQuery("call parts.CHECK_ORDER("+id+", '"+state+"');").executeUpdate();
+        session.close();
+    }
+
 }

@@ -148,6 +148,14 @@ public class PartsController {
         return "orders";
     }
 
+    @PostMapping("/orders/check")
+    public String ordersCheckRequest(Model model, @RequestParam String id, @RequestParam String state){
+        OrdersCRUD.check(id, state);
+        List<String[]> orders = OrdersCRUD.read();
+        model.addAttribute("orders", orders);
+        return "redirect:/orders";
+    }
+
     @PostMapping("customers/add-order")
     public String ordersAddRequest(Model model, @RequestParam String customerId){
         OrdersCRUD.create(customerId);
