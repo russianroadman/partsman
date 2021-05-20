@@ -143,9 +143,36 @@ public class PartsController {
 
     @GetMapping("orders")
     public String ordersRequest(Model model){
-        List<String[]> orders = StoredProcedures.getOrders();
+        List<String[]> orders = OrdersCRUD.read();
         model.addAttribute("orders", orders);
         return "orders";
+    }
+
+    @PostMapping("customers/add-order")
+    public String ordersAddRequest(Model model, @RequestParam String customerId){
+        OrdersCRUD.create(customerId);
+        List<String[]> orders = OrdersCRUD.read();
+        model.addAttribute("orders", orders);
+        return "redirect:/customers";
+    }
+
+    @PostMapping("/orders/delete")
+    public String ordersRemoveRequest(Model model, @RequestParam String id){
+        OrdersCRUD.delete(id);
+        List<String[]> orders = OrdersCRUD.read();
+        model.addAttribute("orders", orders);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/orders/update")
+    public String ordersUpdateRequest(Model model,
+                                         @RequestParam String id,
+                                         @RequestParam String customerId,
+                                         @RequestParam String workerId){
+        OrdersCRUD.update(id, customerId, workerId);
+        List<String[]> orders = OrdersCRUD.read();
+        model.addAttribute("orders", orders);
+        return "redirect:/orders";
     }
 
     /* ************************************************************* */

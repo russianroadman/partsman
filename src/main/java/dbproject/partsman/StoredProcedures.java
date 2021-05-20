@@ -15,20 +15,12 @@ public class StoredProcedures {
         return items;
     }
 
-    public static List<String[]> getInstock(){
+    public static List<String[]> getInstock() {
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
         List<String[]> instock = session.createSQLQuery("call parts.GET_INSTOCK();").getResultList();
         session.close();
         return instock;
-    }
-
-    public static List<String[]> getOrders(){
-        session = HibernateSession.getCurrentSession();
-        session.beginTransaction();
-        List<String[]> orders = session.createSQLQuery("call parts.GET_ORDERS();").getResultList();
-        session.close();
-        return orders;
     }
 
 

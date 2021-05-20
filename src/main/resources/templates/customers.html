@@ -37,9 +37,10 @@
             <th th:text="${el[4]}"></th>
             <th th:text="${el[5]}"></th>
             <th th:text="${el[6]}"></th>
-            <th>
+            <th style="display:flex; flex-direction:row;">
                 <button th:attr="onclick=|deletePost(${el[0]})|"><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></button>
                 <button th:attr="onclick=|updatePost(${el[0]})|"><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24"><path d="M13.5 2c-5.629 0-10.212 4.436-10.475 10h-3.025l4.537 5.917 4.463-5.917h-2.975c.26-3.902 3.508-7 7.475-7 4.136 0 7.5 3.364 7.5 7.5s-3.364 7.5-7.5 7.5c-2.381 0-4.502-1.119-5.876-2.854l-1.847 2.449c1.919 2.088 4.664 3.405 7.723 3.405 5.798 0 10.5-4.702 10.5-10.5s-4.702-10.5-10.5-10.5z"/></svg></button>
+                <button th:attr="onclick=|addOrderPost(${el[0]})|"><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24"><path d="M14.039 8.968l-3.961-3.968h1.968s.991-3.178-2.985-5c6.191.222 6.972 5 6.972 5h1.967l-3.961 3.968zm6.461 5.575l-.342.195v1.717l.342-.195v-1.717zm-.844.481l-.35.199v1.717l.35-.199v-1.717zm.906-10.024l-1.306 1.55 1.62.919-6.859 3.698-8.86-5.138 4.436-2.685c-.234-.5-.626-.989-1.313-1.338l-5.124 2.978-3.156 5.487 2 1.106v5.445l12.25 6.978 9.75-5.551v-11.508l-3.438-1.941zm-16.624 2.688l7.897 4.54-1.192 2.091-7.872-4.605 1.167-2.026zm9.062 13.298l-9-5.126v-3.112l7.377 4.319 1.623-2.845v6.764zm9-3.7l-7 3.985v-8.361l7-3.773v8.149zm-4.907-.802l-.349.199v1.713l.349-.195v-1.717zm.584-.333l-.343.195v1.717l.343-.195v-1.717zm1.395-.794l-.343.195v1.717l.343-.195v-1.717zm-.574.327l-.344.196v1.717l.344-.196v-1.717z"/></svg></button>
             </th>
         </tr>
     </table>
@@ -78,6 +79,12 @@
         <input class="delete-id" name="id" placeholder="ID" readonly>
         <button onclick="this.form.submit();">submit</button>
     </form>
+    <form action="/customers/add-order" method="post" style="display:flex; flex-direction:column;">
+        <br>
+        <b style="color:white;background:black;">Добавить заказ</b>
+        <input class="add-order-id" name="customerId" placeholder="ID" readonly>
+        <button onclick="this.form.submit();">submit</button>
+    </form>
 </div>
 
 <script>
@@ -88,6 +95,10 @@
 
     function updatePost(value){
         document.getElementsByClassName("update-id")[0].value = value;
+    }
+
+    function addOrderPost(value){
+        document.getElementsByClassName("add-order-id")[0].value = value;
     }
 
 </script>
