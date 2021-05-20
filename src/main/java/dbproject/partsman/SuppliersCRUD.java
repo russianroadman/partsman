@@ -1,7 +1,6 @@
 package dbproject.partsman;
 
 import org.hibernate.Session;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

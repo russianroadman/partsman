@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
@@ -163,11 +162,41 @@ public class PartsController {
 
     @GetMapping("workers")
     public String workersRequest(Model model){
-        List<String[]> workers = StoredProcedures.getWorkers();
+        List<String[]> workers = WorkersCRUD.read();
         model.addAttribute("workers", workers);
         return "workers";
     }
 
+    @PostMapping("workers")
+    public String workersAddRequest(Model model,
+                                      @RequestParam String firstname,
+                                      @RequestParam String secondname,
+                                      @RequestParam String middlename){
+        WorkersCRUD.create(firstname, secondname, middlename);
+        List<String[]> workers = WorkersCRUD.read();
+        model.addAttribute("workers", workers);
+        return "redirect:/workers";
+    }
 
+    @PostMapping("/workers/delete")
+    public String workersRemoveRequest(Model model,
+                                         @RequestParam String id){
+        WorkersCRUD.delete(id);
+        List<String[]> workers = WorkersCRUD.read();
+        model.addAttribute("workers", workers);
+        return "redirect:/workers";
+    }
+
+    @PostMapping("/workers/update")
+    public String workersUpdateRequest(Model model,
+                                         @RequestParam String id,
+                                         @RequestParam String firstname,
+                                         @RequestParam String secondname,
+                                         @RequestParam String middlename){
+        WorkersCRUD.update(id, firstname, secondname, middlename);
+        List<String[]> workers = WorkersCRUD.read();
+        model.addAttribute("workers", workers);
+        return "redirect:/workers";
+    }
 
 }

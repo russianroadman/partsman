@@ -40,15 +40,6 @@ public class StoredProcedures {
     }
 
 
-
-    public static List<String[]> getWorkers(){
-        session = HibernateSession.getCurrentSession();
-        session.beginTransaction();
-        List<String[]> workers = session.createSQLQuery("call parts.GET_WORKERS();").getResultList();
-        session.close();
-        return workers;
-    }
-
     public static void addItem(String title, String snum, String qtty, String price){
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
