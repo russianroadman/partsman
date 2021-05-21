@@ -3,9 +3,11 @@ package dbproject.partsman;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.websocket.server.PathParam;
 import java.util.*;
 
 @Controller
@@ -39,6 +41,16 @@ public class PartsController {
     @PostMapping("/instock/delete")
     public String instockDeleteRequest(Model model, @RequestParam String id){
         InstockCRUD.delete(id);
+        model.addAttribute("instock", InstockCRUD.read());
+        return "redirect:/instock";
+    }
+
+    @PostMapping("/instock/add-to-order")
+    public String instockAddToOrderRequest(Model model,
+                                           @RequestParam String idOrder,
+                                           @RequestParam String idInstock,
+                                           @RequestParam String qtty){
+        DetailsCRUD.create(idOrder, idInstock, qtty);
         model.addAttribute("instock", InstockCRUD.read());
         return "redirect:/instock";
     }
@@ -304,8 +316,7 @@ public class PartsController {
 
     @GetMapping("workers")
     public String workersRequest(Model model){
-        List<String[]> workers = WorkersCRUD.read();
-        model.addAttribute("workers", workers);
+        model.addAttribute("workers", WorkersCRUD.read());
         return "workers";
     }
 
@@ -315,8 +326,7 @@ public class PartsController {
                                       @RequestParam String secondname,
                                       @RequestParam String middlename){
         WorkersCRUD.create(firstname, secondname, middlename);
-        List<String[]> workers = WorkersCRUD.read();
-        model.addAttribute("workers", workers);
+        model.addAttribute("workers", WorkersCRUD.read());
         return "redirect:/workers";
     }
 
@@ -324,8 +334,7 @@ public class PartsController {
     public String workersRemoveRequest(Model model,
                                          @RequestParam String id){
         WorkersCRUD.delete(id);
-        List<String[]> workers = WorkersCRUD.read();
-        model.addAttribute("workers", workers);
+        model.addAttribute("workers", WorkersCRUD.read());
         return "redirect:/workers";
     }
 
@@ -336,9 +345,38 @@ public class PartsController {
                                          @RequestParam String secondname,
                                          @RequestParam String middlename){
         WorkersCRUD.update(id, firstname, secondname, middlename);
-        List<String[]> workers = WorkersCRUD.read();
-        model.addAttribute("workers", workers);
+        model.addAttribute("workers", WorkersCRUD.read());
         return "redirect:/workers";
+    }
+
+    /* ************************************************************* */
+    /* ************************** DETAILS ************************** */
+    /* ************************************************************* */
+
+    @GetMapping("order-details/{number}")
+    public String detailsRequest(Model model, @PathVariable String number){
+        model.addAttribute("number", number);
+        model.addAttribute("details", DetailsCRUD.read(number));
+        return "order-details";
+    }
+
+    @PostMapping("/order-details/{number}/update")
+    public String detailsUpdateRequest(Model model,
+                                       @PathVariable String number,
+                                       @RequestParam String id,
+                                       @RequestParam String qtty){
+        DetailsCRUD.update(id, qtty);
+        model.addAttribute("details", DetailsCRUD.read(number));
+        return "redirect:/order-details/{number}";
+    }
+
+    @PostMapping("/order-details/{number}/delete")
+    public String detailsDeleteRequest(Model model,
+                                       @PathVariable String number,
+                                       @RequestParam String id){
+        DetailsCRUD.delete(id);
+        model.addAttribute("details", DetailsCRUD.read(number));
+        return "redirect:/order-details/{number}";
     }
 
 }
