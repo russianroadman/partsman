@@ -15,10 +15,10 @@ public class BrandsCRUD {
         session.close();
     }
 
-    public static List<String> read(){
+    public static List<String[]> read(){
         session = HibernateSession.getCurrentSession();
         session.beginTransaction();
-        List<String> brands = session.createSQLQuery("call parts.GET_BRANDS();").getResultList();
+        List<String[]> brands = session.createSQLQuery("call parts.GET_BRANDS();").getResultList();
         session.close();
         return brands;
     }

@@ -22,9 +22,25 @@ public class PartsController {
 
     @GetMapping("instock")
     public String instockRequest(Model model){
-        List<String[]> instock = StoredProcedures.getInstock();
-        model.addAttribute("instock", instock);
+        model.addAttribute("instock", InstockCRUD.read());
         return "instock";
+    }
+
+    @PostMapping("/instock/update")
+    public String instockUpdateRequest(Model model,
+                                       @RequestParam String id,
+                                       @RequestParam String qtty,
+                                       @RequestParam String price){
+        InstockCRUD.update(id, qtty, price);
+        model.addAttribute("instock", InstockCRUD.read());
+        return "redirect:/instock";
+    }
+
+    @PostMapping("/instock/delete")
+    public String instockDeleteRequest(Model model, @RequestParam String id){
+        InstockCRUD.delete(id);
+        model.addAttribute("instock", InstockCRUD.read());
+        return "redirect:/instock";
     }
 
     /* ************************************************************* */
@@ -33,7 +49,7 @@ public class PartsController {
 
     @GetMapping("brands")
     public String brandsRequest(Model model){
-        List<String> brands = BrandsCRUD.read();
+        List<String[]> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "brands";
     }
@@ -41,7 +57,7 @@ public class PartsController {
     @PostMapping("brands")
     public String brandsAddRequest(Model model, @RequestParam String title){
         BrandsCRUD.create(title);
-        List<String> brands = BrandsCRUD.read();
+        List<String[]> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "redirect:/brands";
     }
@@ -49,7 +65,7 @@ public class PartsController {
     @PostMapping("/brands/delete")
     public String brandsRemoveRequest(Model model, @RequestParam String id){
         BrandsCRUD.delete(id);
-        List<String> brands = BrandsCRUD.read();
+        List<String[]> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "redirect:/brands";
     }
@@ -57,7 +73,7 @@ public class PartsController {
     @PostMapping("/brands/update")
     public String brandsUpdateRequest(Model model, @RequestParam String id, @RequestParam String title){
         BrandsCRUD.update(id, title);
-        List<String> brands = BrandsCRUD.read();
+        List<String[]> brands = BrandsCRUD.read();
         model.addAttribute("brands", brands);
         return "redirect:/brands";
     }
@@ -120,21 +136,71 @@ public class PartsController {
 
     @GetMapping("items")
     public String itemsRequest(Model model){
-        List<String[]> items = StoredProcedures.getItems();
-        model.addAttribute("items", items);
+        model.addAttribute("items", ItemsCRUD.read());
+        model.addAttribute("suppliers", SuppliersCRUD.read());
+        model.addAttribute("brands", BrandsCRUD.read());
         return "items";
     }
 
-    @PostMapping("items/add")
-    public String itemsAddRequest(Model model,
+    @PostMapping("items/add-instock")
+    public String itemsAddToInstockRequest(Model model,
                                     @RequestParam String title,
                                     @RequestParam String snum,
                                     @RequestParam String qtty,
                                     @RequestParam String price){
-        StoredProcedures.addItem(title, snum, qtty, price);
-        List<String[]> items = StoredProcedures.getItems();
-        model.addAttribute("items", items);
-        return "items";
+        InstockCRUD.create(title, snum, qtty, price);
+        model.addAttribute("items", ItemsCRUD.read());
+        model.addAttribute("suppliers", SuppliersCRUD.read());
+        model.addAttribute("brands", BrandsCRUD.read());
+        return "redirect:/items";
+    }
+
+    @PostMapping("items")
+    public String itemsAddRequest(Model model,
+                                  @RequestParam String type,
+                                  @RequestParam String serial,
+                                  @RequestParam String supplierID,
+                                  @RequestParam String brandTitle,
+                                  @RequestParam String description,
+                                  @RequestParam String title,
+                                  @RequestParam String category,
+                                  @RequestParam String partQtty){
+        supplierID = supplierID.replaceAll("[^\\d.]", "");
+        ItemsCRUD.create(type, serial, supplierID, brandTitle, description, title, category, partQtty);
+        model.addAttribute("items", ItemsCRUD.read());
+        model.addAttribute("suppliers", SuppliersCRUD.read());
+        model.addAttribute("brands", BrandsCRUD.read());
+        return "redirect:/items";
+    }
+
+    @PostMapping("items/update")
+    public String itemsUpdateRequest(Model model,
+                                  @RequestParam String selectedSerial,
+                                  @RequestParam String selectedTitle,
+                                  @RequestParam String serial,
+                                  @RequestParam String supplierID,
+                                  @RequestParam String brandTitle,
+                                  @RequestParam String description,
+                                  @RequestParam String title,
+                                  @RequestParam String category,
+                                  @RequestParam String partQtty){
+        supplierID = supplierID.replaceAll("[^\\d.]", "");
+        ItemsCRUD.update(selectedSerial, selectedTitle, serial, supplierID, brandTitle, description, title, category, partQtty);
+        model.addAttribute("items", ItemsCRUD.read());
+        model.addAttribute("suppliers", SuppliersCRUD.read());
+        model.addAttribute("brands", BrandsCRUD.read());
+        return "redirect:/items";
+    }
+
+    @PostMapping("items/delete")
+    public String itemsDeleteRequest(Model model,
+                                     @RequestParam String selectedSerial,
+                                     @RequestParam String selectedTitle){
+        ItemsCRUD.delete(selectedSerial, selectedTitle);
+        model.addAttribute("items", ItemsCRUD.read());
+        model.addAttribute("suppliers", SuppliersCRUD.read());
+        model.addAttribute("brands", BrandsCRUD.read());
+        return "redirect:/items";
     }
 
     /* ************************************************************* */
