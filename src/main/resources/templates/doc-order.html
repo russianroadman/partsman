@@ -11,6 +11,25 @@
     <table style="width:100%">
         <tr style="color:white;background:black;">
             <th>#</th>
+            <th>ФИО</th>
+            <th>Телефон</th>
+            <th>Дата заказа</th>
+            <th>Работник</th>
+            <th>Закрыто</th>
+        </tr>
+        <tr th:each="el : ${info}" style="background:lightgrey; text-align: left;">
+            <th th:text="${el[0]}"></th>
+            <th th:text="${el[1]}"></th>
+            <th th:text="${el[2]}"></th>
+            <th th:text="${el[3]}"></th>
+            <th th:text="${el[4]}"></th>
+            <th th:text="${el[5]}"></th>
+        </tr>
+    </table>
+    <p>Детали заказа:</p>
+    <table style="width:100%">
+        <tr style="color:white;background:black;">
+            <th>#</th>
             <th>Сер. №</th>
             <th>Наименование</th>
             <th>Цена</th>
@@ -20,13 +39,22 @@
             <th th:text="${el[0]}"></th>
             <th th:text="${el[1]}"></th>
             <th th:text="${el[2]}"></th>
-            <th th:text="${el[3]}"></th>
+            <th class="price" th:text="${el[3]}"></th>
             <th th:text="${el[4]}"></th>
         </tr>
     </table>
 
+    <p id="sum">Сумма заказа: </p>
+
     <script>
 
+        var sum = 0;
+        var sumElement = document.getElementById("sum");
+        var prices = document.getElementsByClassName("price");
+        for (var i = 0; i < prices.length; i++){
+            sum += parseInt(prices[i].innerHTML);
+        }
+        sumElement.innerHTML = "Сумма заказа: " + sum;
         window.print();
 
     </script>

@@ -40,4 +40,13 @@ public class StoredProcedures {
         return doc;
     }
 
+    public static List<String[]> getOrderInfo(String orderId){
+        session = HibernateSession.getCurrentSession();
+        session.beginTransaction();
+        List<String[]> info =
+                session.createSQLQuery("call parts.GET_ORDER_INFO("+orderId+");").getResultList();
+        session.close();
+        return info;
+    }
+
 }

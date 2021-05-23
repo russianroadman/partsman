@@ -383,6 +383,7 @@ public class PartsController {
     public String detailsDocRequest(Model model, @PathVariable String number){
         model.addAttribute("number", number);
         model.addAttribute("doc", StoredProcedures.getDocOrder(number));
+        model.addAttribute("info", StoredProcedures.getOrderInfo(number));
         return "doc-order";
     }
 
