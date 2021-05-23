@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Отчёт "Детали заказа"</title>
+</head>
+<body style="display:flex; flex-direction:column;">
+
+    <h3 th:text="'ОТЧЁТ Детали заказа номер ' + ${number}"> </h3>
+    <table style="width:100%">
+        <tr style="color:white;background:black;">
+            <th>#</th>
+            <th>Сер. №</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Количество</th>
+        </tr>
+        <tr th:each="el : ${doc}" style="background:lightgrey; text-align: left;">
+            <th th:text="${el[0]}"></th>
+            <th th:text="${el[1]}"></th>
+            <th th:text="${el[2]}"></th>
+            <th th:text="${el[3]}"></th>
+            <th th:text="${el[4]}"></th>
+        </tr>
+    </table>
+
+    <script>
+
+        window.print();
+
+    </script>
+
+</body>
+</html>

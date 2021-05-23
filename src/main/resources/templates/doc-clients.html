@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title th:text="'ОТЧЁТ Клиенты города ' + ${city}"></title>
+</head>
+<body style="display:flex; flex-direction:column;">
+
+    <h3 th:text="'ОТЧЁТ Клиенты города ' + ${city}"></h3>
+    <table style="width:100%">
+        <tr style="color:white;background:black;">
+            <th>#</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Эл. почта</th>
+            <th>Телефон</th>
+            <th>Город</th>
+            <th>Улица</th>
+            <th>Дом</th>
+        </tr>
+        <tr th:each="el : ${doc}" style="background:lightgrey; text-align: left;">
+            <th th:text="${el[0]}"></th>
+            <th th:text="${el[1]}"></th>
+            <th th:text="${el[2]}"></th>
+            <th th:text="${el[3]}"></th>
+            <th th:text="${el[4]}"></th>
+            <th th:text="${el[5]}"></th>
+            <th th:text="${el[6]}"></th>
+            <th th:text="${el[7]}"></th>
+            <th th:text="${el[8]}"></th>
+        </tr>
+    </table>
+
+    <script>
+
+        window.print();
+
+    </script>
+
+</body>
+</html>

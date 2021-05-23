@@ -85,6 +85,12 @@
         <input class="add-order-id" name="customerId" placeholder="ID" readonly>
         <button onclick="this.form.submit();">submit</button>
     </form>
+    <form action="/customers/doc-clients" method="get" style="display:flex; flex-direction:column;">
+        <br>
+        <b style="color:white;background:black;">Документ</b>
+        <input type="text" name="city" placeholder="Город">
+        <button onclick="this.form.submit();">Печать</button>
+    </form>
 </div>
 
 <script>

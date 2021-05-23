@@ -74,7 +74,7 @@
             <option th:each="el : ${brands}" th:text="${el[1]}"></option>
         </select>
         <textarea name="description" placeholder="Описание"></textarea>
-        <input name="partQtty" class="number" type="number" placeholder="Количество" min="0" value="0">
+        <input name="partQtty" class="number" type="number" placeholder="Количество" min="1" value="1">
         <button class="submit-add" onclick="this.form.submit();">submit</button>
     </form>
     <form action="items/update" id="update" method="post" style="display:flex; flex-direction:column;">
@@ -91,7 +91,7 @@
             <option th:each="el : ${brands}" th:text="${el[1]}"></option>
         </select>
         <textarea name="description" placeholder="Описание"></textarea>
-        <input name="partQtty" class="number" type="number" placeholder="Количество" min="0" value="0">
+        <input name="partQtty" class="number" type="number" placeholder="Количество" min="1">
         <button class="submit-add" onclick="this.form.submit();">submit</button>
     </form>
     <form action="items/delete" id="delete" method="post" style="display:flex; flex-direction:column;">

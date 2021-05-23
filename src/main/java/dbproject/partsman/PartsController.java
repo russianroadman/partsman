@@ -28,6 +28,18 @@ public class PartsController {
         return "instock";
     }
 
+    @GetMapping("/instock/doc-liquids")
+    public String instockDocLiquidsRequest(Model model){
+        model.addAttribute("doc", StoredProcedures.getDocLiquids());
+        return "doc-liquids";
+    }
+
+    @GetMapping("/instock/doc-tools")
+    public String instockDocToolsRequest(Model model){
+        model.addAttribute("doc", StoredProcedures.getDocTools());
+        return "doc-tools";
+    }
+
     @PostMapping("/instock/update")
     public String instockUpdateRequest(Model model,
                                        @RequestParam String id,
@@ -99,6 +111,13 @@ public class PartsController {
         List<String[]> customers = CustomersCRUD.read();
         model.addAttribute("customers", customers);
         return "customers";
+    }
+
+    @GetMapping("/customers/doc-clients")
+    public String customersDocClientsRequest(Model model, @RequestParam String city){
+        model.addAttribute("doc", StoredProcedures.getDocClients(city));
+        model.addAttribute("city", city);
+        return "doc-clients";
     }
 
     @PostMapping("customers")
@@ -358,6 +377,13 @@ public class PartsController {
         model.addAttribute("number", number);
         model.addAttribute("details", DetailsCRUD.read(number));
         return "order-details";
+    }
+
+    @GetMapping("order-details/{number}/doc-order")
+    public String detailsDocRequest(Model model, @PathVariable String number){
+        model.addAttribute("number", number);
+        model.addAttribute("doc", StoredProcedures.getDocOrder(number));
+        return "doc-order";
     }
 
     @PostMapping("/order-details/{number}/update")

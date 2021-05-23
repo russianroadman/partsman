@@ -55,6 +55,11 @@
         <input class="delete-id" name="id" placeholder="ID" readonly>
         <button onclick="this.form.submit();">submit</button>
     </form>
+    <form th:attr="action=|/order-details/${number}/doc-order|" method="get" style="display:flex; flex-direction:column;">
+        <br>
+        <b style="color:white;background:black;">Документ</b>
+        <button onclick="this.form.submit();">Печать</button>
+    </form>
 </div>
 
 <script>
