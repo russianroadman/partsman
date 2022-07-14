@@ -1,4 +1,4 @@
 # partsman
 partsman dbms
 
-Online shop for parts
+Online shop for parts admin panel
